@@ -14,7 +14,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/wuzhc/gmq/utils"
+	"github.com/wuzhc/gmq-redis/utils"
 )
 
 type fileTarget struct {

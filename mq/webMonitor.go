@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/wuzhc/gmq/utils"
+	"github.com/wuzhc/gmq-redis/utils"
 )
 
 type WebMonitor struct {

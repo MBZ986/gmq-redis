@@ -2,25 +2,26 @@ package mq
 
 import (
 	"context"
+	"github.com/bitly/go-simplejson"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
-	"strconv"
 )
 
 type Service struct {
+	simplejson.Json
 }
 
-func (s *Service) Push(j map[string]string, reply *string) error {
-	delay, _ := strconv.Atoi(j["delay"])
-	TTR, _ := strconv.Atoi(j["TTR"])
-	job := &Job{
-		Id:    j["id"],
-		Body:  j["body"],
-		Topic: j["topic"],
-		Delay: delay,
-		TTR:   TTR,
-	}
+func (s *Service) Push(job *Job, reply *string) error {
+	//delay, _ := strconv.Atoi(j["delay"])
+	//TTR, _ := strconv.Atoi(j["TTR"])
+	//job := &Job{
+	//	Id:    j["id"],
+	//	Body:  j["body"],
+	//	Topic: j["topic"],
+	//	Delay: delay,
+	//	TTR:   TTR,
+	//}
 
 	err := gmq.dispatcher.AddToJobPool(job)
 	if err != nil {
