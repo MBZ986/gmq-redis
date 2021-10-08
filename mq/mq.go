@@ -9,8 +9,8 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/wuzhc/gmq-redis/logs"
-	"github.com/wuzhc/gmq-redis/utils"
+	"github.com/jackiedong168/gmq-redis/logs"
+	"github.com/jackiedong168/gmq-redis/utils"
 	"gopkg.in/ini.v1"
 )
 

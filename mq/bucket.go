@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/gomodule/redigo/redis"
-	"github.com/wuzhc/gmq-redis/logs"
-	"github.com/wuzhc/gmq-redis/utils"
+	"github.com/jackiedong168/gmq-redis/logs"
+	"github.com/jackiedong168/gmq-redis/utils"
 )
 
 var (

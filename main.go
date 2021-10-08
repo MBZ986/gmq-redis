@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/wuzhc/gmq-redis/mq"
+	"github.com/jackiedong168/gmq-redis/mq"
 )
 
 func main() {
