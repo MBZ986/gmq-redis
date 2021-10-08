@@ -6,3 +6,4 @@ gmq.log
 .gmq.out
 /vendor/*
 !/vendor/vendor.json
+.idea/
