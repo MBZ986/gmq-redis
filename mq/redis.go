@@ -25,17 +25,17 @@ func init() {
 
 func (db *RedisDB) InitPool() {
 	host := gmq.cfg.Section("redis").Key("host").String()
+	password := gmq.cfg.Section("redis").Key("password").String()
 	port := gmq.cfg.Section("redis").Key("port").String()
 	maxIdle, _ := gmq.cfg.Section("redis").Key("max_idle").Int()
 	maxActive, _ := gmq.cfg.Section("redis").Key("max_active").Int()
-
 	db.Pool = &redis.Pool{
 		MaxIdle:     maxIdle,
 		MaxActive:   maxActive,
 		IdleTimeout: 240 * time.Second,
 		Wait:        true,
 		Dial: func() (redis.Conn, error) {
-			c, err := redis.Dial("tcp", host+":"+port, redis.DialPassword(""))
+			c, err := redis.Dial("tcp", host+":"+port, redis.DialPassword(password))
 			if err != nil {
 				return nil, err
 			}
