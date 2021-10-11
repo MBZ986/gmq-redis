@@ -2,6 +2,7 @@ package mq
 
 import (
 	"context"
+	"fmt"
 	"github.com/bitly/go-simplejson"
 	"net"
 	"net/rpc"
@@ -47,7 +48,8 @@ type RpcServer struct {
 
 func (s *RpcServer) Run(ctx context.Context) {
 	rpc.Register(new(Service))
-	listener, err := net.Listen("tcp", ":9503")
+	port := gmq.cfg.Section("server").Key("rpc_port").MustString("9503")
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 	if err != nil {
 		log.Error("listen error:", err)
 	} else {

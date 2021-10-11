@@ -46,9 +46,9 @@ func (w *WebMonitor) Run(ctx context.Context) {
 	r.GET("/jobDetail", w.jobDetail)
 	r.GET("/test", w.test)
 	// r.Run(":8000")
-
+	port := gmq.cfg.Section("server").Key("web_port").MustString("8000")
 	serv := &http.Server{
-		Addr:    ":8000",
+		Addr:    fmt.Sprintf(":%s", port),
 		Handler: r,
 	}
 
