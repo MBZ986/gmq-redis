@@ -184,6 +184,42 @@ func AddToJobPool(j *Job) error {
 	return err
 }
 
+func AddKey(key, value string) bool {
+	if _, err := Redis.Do("SET", key, value); err != nil {
+		return false
+	}
+	return true
+}
+
+func DelKey(key string) bool {
+	if _, err := Redis.Do("DEL", key); err != nil {
+		return false
+	}
+	return true
+}
+
+//并发不安全
+func ExistJobId(jobId string) bool {
+	isExist, err := Redis.Bool("EXISTS", GetJobKeyById(jobId))
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+	return isExist
+}
+
+//并发不安全
+func ExistTopic(topics []string) (topic string, isexist bool) {
+	for _, topic := range topics {
+		fmt.Println(topic)
+		isExist, _ := Redis.Bool("EXISTS", GetJobQueueByTopic(topic))
+		if isExist == true {
+			return topic, true
+		}
+	}
+	return "", false
+}
+
 func AddToReadyQueue(jobId string) error {
 	conn := Redis.Pool.Get()
 	defer conn.Close()

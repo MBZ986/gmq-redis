@@ -14,16 +14,6 @@ type Service struct {
 }
 
 func (s *Service) Push(job *Job, reply *string) error {
-	//delay, _ := strconv.Atoi(j["delay"])
-	//TTR, _ := strconv.Atoi(j["TTR"])
-	//job := &Job{
-	//	Id:    j["id"],
-	//	Body:  j["body"],
-	//	Topic: j["topic"],
-	//	Delay: delay,
-	//	TTR:   TTR,
-	//}
-
 	err := gmq.dispatcher.AddToJobPool(job)
 	if err != nil {
 		*reply = err.Error()
@@ -42,6 +32,24 @@ func (s *Service) Ack(id string, reply *bool) (err error) {
 	*reply, err = Ack(id)
 	return err
 }
+
+func (s *Service) ExistTopics(topics []string, reply *map[string]interface{}) error {
+	topic, isexist := ExistTopic(topics)
+	result := make(map[string]interface{}, 0)
+	result["topic"] = topic
+	result["isexist"] = isexist
+	*reply = result
+	return nil
+}
+
+func (s *Service) ExistJob(jobId string, reply *bool) error {
+	*reply = ExistJobId(jobId)
+	return nil
+}
+
+//func (s *Service) Add(key string, reply *bool) error {
+//	AddKey()
+//}
 
 type RpcServer struct {
 }
